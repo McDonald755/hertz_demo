@@ -1,0 +1,51 @@
+// idl/hello/hello.proto
+syntax = "proto3";
+
+package user;
+
+option go_package = "hertz/hello";
+
+import "api.proto";
+
+message LoginReq {
+  string Name = 1[(api.query)="name"];
+}
+
+message LoginResp {
+  string RespBody = 1;
+}
+
+message GameReq {
+
+}
+
+message GameResp {
+
+}
+
+service UserService {
+  rpc Method3(HelloReq) returns(HelloResp) {
+    option (api.get) = "/hello1";
+  }
+  rpc Method4(OtherReq) returns(OtherResp) {
+    option (api.post) = "/other2";
+  }
+}
+
+service QueryService {
+  rpc GetGamePage(OtherReq) returns(OtherResp) {
+    option (api.post) = "/getGames";
+  }
+
+  rpc GetGameDetail(OtherReq) returns(OtherResp) {
+    option (api.get) = "/getGameDetail";
+  }
+
+  rpc InsertGames(OtherReq) returns(OtherResp) {
+    option (api.post) = "/insertGames";
+  }
+
+  rpc UpdateGame(OtherReq) returns(OtherResp) {
+    option (api.post) = "/updateGame";
+  }
+}

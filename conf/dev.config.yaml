@@ -1,0 +1,23 @@
+App:
+  hostPorts: 127.0.0.1:8888
+  maxRequestBodySize: 31457280  # 30M
+
+Redis:
+  addr: "127.0.0.1:6379"
+  password: ""
+  db: 1
+  encodeLockSecond: 10
+  decodeLockSecond: 10
+  driftLockSecond: 2
+  compressLockSecond: 5
+  driftLimit: 10000
+
+Mysql:
+    driverName: mysql
+    host: localhost
+    port: "3306"
+    databaseName: demo
+    username: root
+    password: root
+    charset: utf8mb4
+    loc: Asia/Shanghai
