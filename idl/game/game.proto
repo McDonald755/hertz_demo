@@ -1,0 +1,55 @@
+// idl/hello/hello.proto
+syntax = "proto3";
+
+package game;
+
+option go_package = "game";
+
+import "api.proto";
+
+message PageReq {
+  int64 pageNumber = 1[(api.query)="pageNumber"];
+  int64 pageSize = 2[(api.query)="pageSize"];
+}
+
+message PageResp {
+  int64 pageNumber = 1;
+  int64 pageSize = 2;
+  int64 totalNum = 3;
+}
+
+
+message Game {
+  string id = 1[(api.query)="id"];
+  string name = 2[(api.query)="name"];
+  string detail = 3[(api.query)="detail"];
+}
+
+message GameQueryReq {
+  repeated Game game = 1[(api.body)="game"];
+  repeated PageReq page = 2[(api.body)="page"];
+}
+
+message GamePageResp {
+  repeated Game gameList = 1;
+  repeated PageResp page = 2;
+
+}
+
+service QueryService {
+  rpc GetGamePage(GameQueryReq) returns(GamePageResp) {
+    option (api.post) = "/getGames";
+  }
+
+  rpc GetGameDetail(GameQueryReq) returns(Game) {
+    option (api.get) = "/getGameDetail";
+  }
+
+  rpc InsertGames(Game) returns(Game) {
+    option (api.post) = "/insertGames";
+  }
+
+  rpc UpdateGame(Game) returns(Game) {
+    option (api.post) = "/updateGame";
+  }
+}

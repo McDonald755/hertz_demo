@@ -3,8 +3,8 @@
 package main
 
 import (
-	handler "demo2/biz/handler"
 	"github.com/cloudwego/hertz/pkg/app/server"
+	handler "hertz_demo/biz/handler"
 )
 
 // customizeRegister registers customize routers.

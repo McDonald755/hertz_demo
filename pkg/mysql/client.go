@@ -2,12 +2,12 @@ package mysql
 
 import (
 	"context"
-	"demo2/pkg/viper"
 	"fmt"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"hertz_demo/pkg/viper"
 	"net/url"
 )
 

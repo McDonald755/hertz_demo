@@ -3,49 +3,39 @@ syntax = "proto3";
 
 package user;
 
-option go_package = "hertz/hello";
+option go_package = "user";
 
 import "api.proto";
 
 message LoginReq {
-  string Name = 1[(api.query)="name"];
+  string name = 1[(api.body) = "name"];
+  string password = 2[(api.body) = "password"];
 }
 
 message LoginResp {
-  string RespBody = 1;
+  uint32 statusCode = 1; // 状态码，0-成功，其他值-失败
+  string statusMsg = 2; // 返回状态描述
+  uint32 userId = 3; // 用户id
+  string token = 4; // 用户鉴权token
 }
 
-message GameReq {
-
+message AuthenticateReq {
+  string token = 1; // 用户鉴权token
 }
 
-message GameResp {
-
+message AuthenticateResp {
+  uint32 statusCode = 1 ; // 状态码，0-成功，其他值-失败
+  string statusMsg = 2; // 返回状态描述
+  uint32 userId = 3; // 用户id
 }
 
 service UserService {
-  rpc Method3(HelloReq) returns(HelloResp) {
-    option (api.get) = "/hello1";
+  rpc Login(LoginReq) returns(LoginResp) {
+    option (api.post) = "/login";
   }
-  rpc Method4(OtherReq) returns(OtherResp) {
-    option (api.post) = "/other2";
+
+  rpc Authenticate (AuthenticateReq) returns (AuthenticateResp) {
+    option (api.post) = "/auth";
   }
 }
 
-service QueryService {
-  rpc GetGamePage(OtherReq) returns(OtherResp) {
-    option (api.post) = "/getGames";
-  }
-
-  rpc GetGameDetail(OtherReq) returns(OtherResp) {
-    option (api.get) = "/getGameDetail";
-  }
-
-  rpc InsertGames(OtherReq) returns(OtherResp) {
-    option (api.post) = "/insertGames";
-  }
-
-  rpc UpdateGame(OtherReq) returns(OtherResp) {
-    option (api.post) = "/updateGame";
-  }
-}

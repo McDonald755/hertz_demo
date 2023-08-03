@@ -4,11 +4,25 @@ package main
 
 import (
 	"github.com/cloudwego/hertz/pkg/app/server"
+	"hertz_demo/pkg/godotenv"
+	"hertz_demo/pkg/viper"
 )
 
 func main() {
-	h := server.Default()
 
+	//初始化操作
+	godotenv.InitGodotenv()
+	viper.InitViper()
+	//redis.InitRedis()
+	serverInit()
+}
+
+func serverInit() {
+	h := server.Default(
+		server.WithHostPorts(viper.Conf.App.HostPorts),
+		server.WithMaxRequestBodySize(viper.Conf.App.MaxRequestBodySize),
+		server.WithExitWaitTime(60),
+	)
 	register(h)
 	h.Spin()
 }

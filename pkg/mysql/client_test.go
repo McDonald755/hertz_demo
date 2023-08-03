@@ -1,8 +1,8 @@
 package mysql
 
 import (
-	"demo2/pkg/viper"
 	"github.com/cloudwego/hertz/pkg/common/test/assert"
+	"hertz_demo/pkg/viper"
 	"os"
 	"testing"
 )
